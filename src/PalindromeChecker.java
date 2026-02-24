@@ -1,30 +1,40 @@
 /**
  * PalindromeChecker App
  * Version: 1.0
- * UC4: Character Array Based Palindrome Check
+ * UC6: Queue + Stack Based Palindrome Check
  */
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class PalindromeChecker {
 
     public static void main(String[] args) {
 
-        String input = "racecar";
+        String input = "radar";
 
-        // Convert string to character array
-        char[] chars = input.toCharArray();
+        // Create a Queue (FIFO) and Stack (LIFO)
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
 
-        // Two-pointer technique
-        int start = 0;
-        int end = chars.length - 1;
+        // Enqueue and push characters
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            queue.add(ch);    // enqueue
+            stack.push(ch);   // push
+        }
+
+        // Compare dequeue (queue) vs pop (stack)
         boolean isPalindrome = true;
+        while (!queue.isEmpty()) {
+            char fromQueue = queue.remove();  // dequeue
+            char fromStack = stack.pop();     // pop
 
-        while (start < end) {
-            if (chars[start] != chars[end]) {
+            if (fromQueue != fromStack) {
                 isPalindrome = false;
-                break; // Exit early if mismatch found
+                break;
             }
-            start++;
-            end--;
         }
 
         // Display result
