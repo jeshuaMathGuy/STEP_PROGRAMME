@@ -1,37 +1,33 @@
 /**
  * PalindromeChecker App
  * Version: 1.0
- * UC6: Queue + Stack Based Palindrome Check
+ * UC7: Deque-Based Optimized Palindrome Checker
  */
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class PalindromeChecker {
 
     public static void main(String[] args) {
 
-        String input = "radar";
+        String input = "level";
 
-        // Create a Queue (FIFO) and Stack (LIFO)
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        // Create a Deque (double-ended queue)
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Enqueue and push characters
+        // Insert all characters into the deque
         for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
-            queue.add(ch);    // enqueue
-            stack.push(ch);   // push
+            deque.addLast(input.charAt(i));
         }
 
-        // Compare dequeue (queue) vs pop (stack)
+        // Compare front and rear characters
         boolean isPalindrome = true;
-        while (!queue.isEmpty()) {
-            char fromQueue = queue.remove();  // dequeue
-            char fromStack = stack.pop();     // pop
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();  // remove from front
+            char rear = deque.removeLast();    // remove from rear
 
-            if (fromQueue != fromStack) {
+            if (front != rear) {
                 isPalindrome = false;
                 break;
             }
